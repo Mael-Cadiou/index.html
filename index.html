@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maël Cadiou</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --white:#FAFAF7;--cream:#F3F1EA;--stone:#E8E4D9;
+  --ink:#0F0F0D;--ink2:#2A2A26;--muted:#8A8880;
+  --green:#2D6A4F;--gl:#52B788;--gp:#D8F3DC;--gm:#40916C;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Outfit',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--white);color:var(--ink);font-family:var(--sans);font-size:15px;font-weight:300;overflow-x:hidden;cursor:none;}
+
+/* CURSOR */
+.cur{position:fixed;width:8px;height:8px;background:var(--green);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s;}
+.cur-ring{position:fixed;width:32px;height:32px;border:1px solid var(--gm);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.4rem 3rem;display:flex;justify-content:space-between;align-items:center;transition:all .3s;}
+.nav-logo{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--ink);text-decoration:none;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:11px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--green);}
+.lang-sw{display:flex;gap:2px;background:var(--cream);border-radius:6px;padding:3px;}
+.lb{font-size:11px;font-weight:500;padding:4px 10px;border:none;background:transparent;color:var(--muted);border-radius:4px;cursor:none;transition:all .2s;}
+.lb.active{background:var(--white);color:var(--ink);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:0 3rem;position:relative;overflow:hidden;}
+.hero-3d{position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:600px;height:600px;opacity:.09;z-index:1;animation:rotateSphere 30s linear infinite;}
+@keyframes rotateSphere{from{transform:translateY(-50%) rotate(0deg);}to{transform:translateY(-50%) rotate(360deg);}}
+.gl{stroke:var(--green);stroke-width:.5;fill:none;}
+.hero-c{position:relative;z-index:2;max-width:700px;}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gm);margin-bottom:1.5rem;display:flex;align-items:center;gap:12px;opacity:0;animation:fu .8s .2s ease forwards;}
+.eyebrow::before{content:'';width:32px;height:1px;background:var(--gm);}
+.hero-name{font-family:var(--serif);font-size:clamp(3.5rem,8vw,7rem);font-weight:300;line-height:1;letter-spacing:-.02em;color:var(--ink);margin-bottom:.2em;opacity:0;animation:fu .8s .35s ease forwards;}
+.hero-name em{font-style:italic;color:var(--green);}
+.hero-sub{font-family:var(--serif);font-size:clamp(1.1rem,2.5vw,1.7rem);font-weight:300;font-style:italic;color:var(--muted);margin-bottom:2rem;opacity:0;animation:fu .8s .5s ease forwards;}
+.hero-desc{font-size:14px;font-weight:300;color:var(--ink2);line-height:1.8;max-width:480px;margin-bottom:2.5rem;opacity:0;animation:fu .8s .65s ease forwards;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2.5rem;opacity:0;animation:fu .8s .8s ease forwards;}
+.htag{font-size:12px;padding:6px 14px;border-radius:20px;border:1px solid var(--stone);color:var(--muted);}
+.hero-cities{font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:center;flex-wrap:wrap;opacity:0;animation:fu .8s .95s ease forwards;}
+.cdot{width:3px;height:3px;border-radius:50%;background:var(--stone);display:inline-block;}
+.scroll-h{position:absolute;bottom:2.5rem;left:3rem;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;z-index:2;opacity:0;animation:fu .8s 1.2s ease forwards;}
+.sl{width:40px;height:1px;background:var(--stone);position:relative;overflow:hidden;}
+.sl::after{content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:var(--gm);animation:sa 2s 1.5s ease-in-out infinite;}
+@keyframes sa{0%{left:-100%;}50%,100%{left:100%;}}
+@keyframes fu{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* SECTIONS */
+section{padding:6rem 3rem;}
+.inner{max-width:1100px;margin:0 auto;}
+.sh{display:flex;align-items:baseline;gap:1.5rem;margin-bottom:3rem;}
+.sn{font-family:var(--serif);font-size:4rem;font-weight:300;color:var(--stone);line-height:1;font-style:italic;flex-shrink:0;}
+.st{font-family:var(--serif);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:var(--ink);}
+.st em{font-style:italic;color:var(--green);}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.vis{opacity:1;transform:translateY(0);}
+
+/* ── CLICK-TO-EXPAND SECTIONS ── */
+.exp-sec{background:var(--white);}
+.click-section{position:relative;}
+
+/* Section preview cards (visible first) */
+.preview-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin-bottom:0;}
+.prev-card{background:var(--cream);border-radius:16px;padding:1.75rem;border:1px solid var(--stone);cursor:none;transition:transform .25s,box-shadow .25s,border-color .25s;position:relative;overflow:hidden;}
+.prev-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(45,106,79,.08);border-color:var(--gm);}
+.prev-card.active-card{border-color:var(--green);box-shadow:0 0 0 2px var(--green);}
+.prev-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--green),var(--gl));transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.prev-card:hover::before,.prev-card.active-card::before{transform:scaleX(1);}
+.pc-num{font-family:var(--serif);font-size:2.5rem;font-weight:300;font-style:italic;color:var(--stone);line-height:1;margin-bottom:.5rem;}
+.pc-title{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--ink);margin-bottom:.3rem;}
+.pc-sub{font-size:13px;color:var(--muted);font-weight:300;}
+.pc-hint{font-size:11px;color:var(--gm);margin-top:1rem;letter-spacing:.05em;display:flex;align-items:center;gap:6px;}
+.pc-hint::after{content:'↓';transition:transform .3s;}
+.prev-card.active-card .pc-hint::after{content:'↑';}
+
+/* Detail panel */
+.detail-panel{max-height:0;overflow:hidden;transition:max-height .6s cubic-bezier(.4,0,.2,1),opacity .4s;opacity:0;}
+.detail-panel.open{max-height:2000px;opacity:1;}
+.dp-inner{padding:2rem 0 1rem;}
+
+/* ── EXPERIENCE ── */
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.exp-card{background:var(--white);border:1px solid var(--stone);border-radius:14px;padding:1.5rem;transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden;will-change:transform;}
+.exp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.exp-card:hover::before{transform:scaleX(1);}
+.ep{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gm);margin-bottom:.4rem;font-weight:400;}
+.er{font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--ink);margin-bottom:.2rem;}
+.ec{font-size:13px;color:var(--muted);margin-bottom:.75rem;}
+.eb{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.eb li{font-size:13px;color:var(--ink2);font-weight:300;line-height:1.6;padding-left:1rem;position:relative;}
+.eb li::before{content:'–';position:absolute;left:0;color:var(--gl);}
+.exp-badge{display:inline-block;margin-top:.75rem;font-size:11px;padding:3px 10px;border-radius:20px;background:var(--gp);color:var(--green);font-weight:400;}
+.filter-tabs{display:flex;gap:8px;margin-bottom:2rem;flex-wrap:wrap;}
+.fb{font-size:12px;font-weight:400;letter-spacing:.08em;padding:7px 18px;border-radius:20px;border:1px solid var(--stone);background:transparent;color:var(--muted);cursor:none;transition:all .2s;}
+.fb.active,.fb:hover{background:var(--ink);color:var(--white);border-color:var(--ink);}
+
+/* ── EDUCATION ── */
+.edu-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:start;}
+.edu-main{background:var(--ink);border-radius:20px;padding:2.5rem;color:var(--white);}
+.edu-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gl);margin-bottom:1.5rem;}
+.edu-school{font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--white);line-height:1.2;margin-bottom:.5rem;}
+.edu-prog{font-family:var(--serif);font-style:italic;font-size:1rem;color:rgba(255,255,255,.45);margin-bottom:2rem;}
+.edu-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:2rem;}
+.edu-stat{background:rgba(255,255,255,.06);border-radius:10px;padding:.8rem;text-align:center;}
+.edu-stat-v{font-family:var(--serif);font-size:1.5rem;color:var(--white);font-weight:300;}
+.edu-stat-l{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;}
+.edu-courses{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.08);}
+.edu-ct{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.75rem;}
+.edu-ci{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px;color:rgba(255,255,255,.6);}
+.edu-ci:last-child{border:none;}
+.edu-gr{font-family:var(--serif);font-size:1rem;color:var(--gl);font-style:italic;}
+.edu-side{display:flex;flex-direction:column;gap:1.25rem;}
+.edu-card{background:var(--white);border-radius:14px;padding:1.5rem;border:1px solid var(--stone);}
+.edu-cp{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gm);margin-bottom:.4rem;}
+.edu-cn{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--ink);margin-bottom:.3rem;}
+.edu-cs{font-size:13px;color:var(--muted);font-weight:300;line-height:1.55;}
+.lang-bar{height:3px;background:var(--stone);border-radius:2px;overflow:hidden;margin-top:5px;}
+.lang-fill{height:100%;background:linear-gradient(to right,var(--green),var(--gl));border-radius:2px;transition:width 1.2s cubic-bezier(.4,0,.2,1);}
+
+/* ── FINANCE DONUT ── */
+.finance-vis{display:grid;grid-template-columns:280px 1fr;gap:3rem;align-items:start;}
+.donut-wrap{position:sticky;top:100px;}
+.donut-svg{width:200px;height:200px;display:block;margin:0 auto 1.5rem;transform:rotate(-90deg);}
+.dseg{cursor:none;transition:stroke-width .25s,opacity .25s;}
+.dseg:hover,.dseg.active{stroke-width:24;}
+.dseg.dim{opacity:.18;}
+.dcl{font-family:var(--sans);font-size:11px;fill:var(--muted);font-weight:400;transform:rotate(90deg);transform-origin:100px 100px;}
+.dcp{font-family:var(--serif);font-size:22px;fill:var(--ink);font-weight:300;transform:rotate(90deg);transform-origin:100px 100px;}
+.donut-leg{display:flex;flex-direction:column;gap:10px;padding:0 .5rem;}
+.dl{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink2);padding:4px 0;border-bottom:1px solid var(--stone);transition:opacity .2s;}
+.dl:last-child{border:none;}
+.dl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.dl-name{flex:1;font-weight:300;}
+.dl-pct{font-family:var(--serif);font-style:italic;color:var(--gm);font-size:14px;}
+.acc-list{display:flex;flex-direction:column;}
+.acc-item{border-bottom:1px solid var(--stone);overflow:hidden;}
+.acc-item:first-child{border-top:1px solid var(--stone);}
+.acc-head{display:flex;align-items:center;gap:16px;padding:1.25rem 0;cursor:none;transition:background .2s;}
+.acc-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.acc-info{flex:1;}
+.acc-n{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--ink);}
+.acc-pct{font-style:italic;color:var(--gm);font-size:.95rem;margin-left:6px;}
+.acc-s{font-size:12px;color:var(--muted);margin-top:2px;font-weight:300;}
+.acc-chev{width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:2;transition:transform .3s;flex-shrink:0;}
+.acc-item.open .acc-chev{transform:rotate(180deg);}
+.acc-body{font-size:13px;color:var(--ink2);line-height:1.7;font-weight:300;max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1),padding .3s;}
+.acc-item.open .acc-body{max-height:120px;padding-bottom:1.25rem;}
+
+/* Philosophy box — dark background, light text */
+.phil-box{background:var(--ink);border-radius:14px;padding:2rem 2.5rem;margin-top:2rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;}
+.phil-quote{font-family:var(--serif);font-size:clamp(1rem,1.8vw,1.35rem);font-weight:300;font-style:italic;line-height:1.6;color:var(--white);border-left:2px solid var(--gl);padding-left:1.5rem;}
+.phil-rules{display:flex;flex-direction:column;gap:9px;}
+.phil-rule{display:flex;gap:10px;font-size:13px;color:rgba(250,250,247,.6);font-weight:300;line-height:1.6;}
+.phil-rn{font-family:var(--serif);font-style:italic;color:var(--gl);font-size:16px;flex-shrink:0;}
+
+/* ── SPORT ── */
+.sport-sec{background:var(--cream);}
+.sport-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:start;}
+.sport-main{background:var(--ink);border-radius:20px;padding:2.5rem;position:relative;overflow:hidden;}
+.sport-main::before{content:'42';position:absolute;right:-10px;bottom:-30px;font-family:var(--serif);font-size:10rem;font-weight:300;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;}
+.slabel{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gl);margin-bottom:1.5rem;}
+.stime{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4rem);font-weight:300;color:var(--white);line-height:1;margin-bottom:.4rem;}
+.sevent{font-size:14px;color:rgba(250,250,247,.5);font-weight:300;margin-bottom:2rem;}
+.sstats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.ss{background:rgba(255,255,255,.05);border-radius:10px;padding:.8rem;}
+.ssv{font-family:var(--serif);font-size:1.3rem;color:var(--white);font-weight:300;margin-bottom:2px;}
+.ssl{font-size:11px;color:rgba(255,255,255,.4);}
+.snext{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.08);font-size:13px;color:rgba(255,255,255,.5);}
+.snext strong{color:var(--gl);font-weight:400;}
+/* Sport progress */
+.sp-prog{margin-top:1.75rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.08);}
+.sp-plabel{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:1rem;}
+.sp-bwrap{position:relative;padding-bottom:1.75rem;}
+.sp-bg{height:4px;background:rgba(255,255,255,.1);border-radius:2px;}
+.sp-fill{height:100%;background:linear-gradient(to right,var(--green),var(--gl));border-radius:2px;width:0;transition:width 1.5s cubic-bezier(.4,0,.2,1);}
+.sp-miles{position:absolute;top:-4px;left:0;right:0;}
+.sp-m{position:absolute;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;}
+.sp-mdot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.2);transition:all .5s;}
+.sp-m.done .sp-mdot{background:var(--gl);border-color:var(--gl);}
+.sp-mlabel{font-size:10px;color:rgba(255,255,255,.35);white-space:nowrap;margin-top:14px;}
+.sp-m.done .sp-mlabel{color:var(--gl);}
+.sport-side{display:flex;flex-direction:column;gap:1.25rem;}
+.sc{background:var(--white);border-radius:14px;padding:1.5rem;border:1px solid var(--stone);}
+.sc-title{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--ink);margin-bottom:.5rem;}
+.sc-text{font-size:13px;color:var(--muted);line-height:1.65;font-weight:300;}
+/* Rugby badge */
+.rugby-badge{display:inline-flex;align-items:center;gap:8px;margin-top:.75rem;font-size:12px;color:var(--gm);background:var(--gp);padding:5px 12px;border-radius:20px;}
+
+/* ── CERTIFICATIONS ── */
+.certs-sec{background:var(--white);}
+.certs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.cert-card{background:var(--cream);border-radius:16px;padding:1.75rem;border:1px solid var(--stone);display:flex;flex-direction:column;gap:.75rem;transition:transform .25s,box-shadow .25s;will-change:transform;}
+.cert-card:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(0,0,0,.06);}
+.cert-logo{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gm);background:var(--gp);display:inline-block;padding:4px 12px;border-radius:20px;width:fit-content;}
+.cert-name{font-family:var(--serif);font-size:1.2rem;font-weight:400;color:var(--ink);line-height:1.3;}
+.cert-desc{font-size:13px;color:var(--muted);line-height:1.6;font-weight:300;flex:1;}
+.cert-date{font-size:12px;color:var(--muted);}
+.cert-link{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--gm);text-decoration:none;margin-top:auto;transition:color .2s;}
+.cert-link:hover{color:var(--green);}
+.cert-link svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;}
+
+/* ── DOCUMENTS ── */
+.docs-sec{background:var(--cream);}
+.docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+.doc-card{background:var(--white);border-radius:14px;padding:1.5rem;border:1px solid var(--stone);display:flex;flex-direction:column;gap:.75rem;transition:transform .25s,box-shadow .25s;will-change:transform;}
+.doc-card:hover{transform:translateY(-3px);box-shadow:0 16px 32px rgba(0,0,0,.06);}
+.doc-type{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gm);background:var(--gp);padding:3px 10px;border-radius:20px;width:fit-content;}
+.doc-title{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--ink);line-height:1.3;}
+.doc-sub{font-size:13px;color:var(--muted);font-weight:300;line-height:1.55;flex:1;}
+.doc-btn{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--gm);font-weight:400;text-decoration:none;margin-top:auto;padding:8px 14px;border:1px solid var(--stone);border-radius:8px;transition:all .2s;width:fit-content;cursor:none;}
+.doc-btn:hover{background:var(--gp);border-color:var(--gl);color:var(--green);}
+.doc-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0;}
+
+/* ── CONTACT ── */
+.contact-sec{background:var(--ink);padding:6rem 3rem;}
+.ci{max-width:700px;margin:0 auto;text-align:center;}
+.csup{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gl);margin-bottom:1.5rem;}
+.ctitle{font-family:var(--serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:300;color:var(--white);line-height:1.15;margin-bottom:1.5rem;}
+.ctitle em{font-style:italic;color:var(--gl);}
+.csub{font-size:14px;color:rgba(250,250,247,.45);font-weight:300;line-height:1.7;margin-bottom:.75rem;max-width:480px;margin-left:auto;margin-right:auto;}
+.cphone{font-size:13px;color:rgba(250,250,247,.3);margin-bottom:2.5rem;letter-spacing:.04em;}
+.clinks{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.cl{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;font-size:13px;font-weight:400;text-decoration:none;transition:all .2s;cursor:none;}
+.cl-p{background:var(--green);color:var(--white);border:1px solid var(--green);}
+.cl-p:hover{background:var(--gm);}
+.cl-s{background:transparent;color:rgba(250,250,247,.6);border:1px solid rgba(255,255,255,.12);}
+.cl-s:hover{color:var(--white);border-color:rgba(255,255,255,.3);}
+.cfoot{margin-top:3rem;font-size:12px;color:rgba(255,255,255,.18);}
+
+/* LANG */
+.vf{} .ve{display:none!important;}
+body.en .vf{display:none!important;}
+body.en .ve{display:block!important;}
+body.en .ve-flex{display:flex!important;}
+body.en .vf-flex{display:none!important;}
+.ve-flex{display:none!important;}
+.vf-flex{display:flex!important;}
+
+/* TILT */
+.exp-card,.cert-card,.doc-card,.prev-card{will-change:transform;}
+@media(max-width:900px){
+  nav{padding:1.2rem 1.5rem;}
+  .nav-links{display:none;}
+  .hero{padding:0 1.5rem;}
+  .hero-3d{display:none;}
+  section{padding:4rem 1.5rem;}
+  .exp-grid,.finance-vis,.docs-grid,.certs-grid,.preview-grid{grid-template-columns:1fr;}
+  .phil-box{grid-template-columns:1fr;}
+  .sport-grid,.edu-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">MC</a>
+  <ul class="nav-links">
+    <li><a href="#exp" class="vf">Expérience</a><a href="#exp" class="ve">Experience</a></li>
+    <li><a href="#edu" class="vf">Formation</a><a href="#edu" class="ve">Education</a></li>
+    <li><a href="#finance">Finance</a></li>
+    <li><a href="#sport">Sport</a></li>
+    <li><a href="#docs" class="vf">Documents</a><a href="#docs" class="ve">Documents</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="lang-sw">
+    <button class="lb active" onclick="setLang('fr')">FR</button>
+    <button class="lb" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="hero-3d" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(200,200)">
+      <ellipse cx="0" cy="0" rx="160" ry="160" class="gl"/>
+      <ellipse cx="0" cy="0" rx="80" ry="160" class="gl"/>
+      <ellipse cx="0" cy="0" rx="40" ry="160" class="gl"/>
+      <ellipse cx="0" cy="0" rx="130" ry="160" class="gl"/>
+      <ellipse cx="0" cy="0" rx="160" ry="80" class="gl" transform="rotate(90)"/>
+      <ellipse cx="0" cy="-80" rx="138" ry="30" class="gl"/>
+      <ellipse cx="0" cy="80" rx="138" ry="30" class="gl"/>
+      <ellipse cx="0" cy="-130" rx="80" ry="18" class="gl"/>
+      <ellipse cx="0" cy="130" rx="80" ry="18" class="gl"/>
+      <ellipse cx="0" cy="-40" rx="155" ry="20" class="gl"/>
+      <ellipse cx="0" cy="40" rx="155" ry="20" class="gl"/>
+    </g>
+  </svg>
+  <div class="hero-c">
+    <div class="eyebrow vf">Finance · Sport · Mobilité internationale</div>
+    <div class="eyebrow ve">Finance · Sport · International mobility</div>
+    <h1 class="hero-name">Maël<br><em>Cadiou</em></h1>
+    <p class="hero-sub vf">Étudiant en finance & passionné de performance</p>
+    <p class="hero-sub ve">Finance student & performance-driven mind</p>
+    <p class="hero-desc vf">NEOMA Business School × Università Cattolica, Piacenza. Spécialisation Finance. Certifié Yale & IBM. 8 ans d'expatriation sur 3 continents.</p>
+    <p class="hero-desc ve">NEOMA Business School × Università Cattolica, Piacenza. Finance specialisation. Yale & IBM certified. 8 years across 3 continents.</p>
+    <div class="hero-tags">
+      <span class="htag">Finance</span><span class="htag">Advisory</span><span class="htag">ESG</span>
+      <span class="htag">Gen AI</span><span class="htag vf">GMAT cible 700+</span><span class="htag ve">GMAT target 700+</span>
+      <span class="htag">IELTS 7.0 · C1</span><span class="htag">Rugby</span>
+    </div>
+    <div class="hero-cities vf-flex"><span>La Rochelle</span><span class="cdot"></span><span>Johannesburg</span><span class="cdot"></span><span>Singapour</span><span class="cdot"></span><span>Vienne</span><span class="cdot"></span><span>Reims</span><span class="cdot"></span><span>Piacenza</span></div>
+    <div class="hero-cities ve-flex"><span>La Rochelle</span><span class="cdot"></span><span>Johannesburg</span><span class="cdot"></span><span>Singapore</span><span class="cdot"></span><span>Vienna</span><span class="cdot"></span><span>Reims</span><span class="cdot"></span><span>Piacenza</span></div>
+  </div>
+  <div class="scroll-h"><span class="sl"></span><span class="vf">Défiler</span><span class="ve">Scroll</span></div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- EXPERIENCE -->
+<!-- ══════════════════════════════════════════ -->
+<section id="exp" class="exp-sec">
+  <div class="inner">
+    <div class="sh reveal">
+      <span class="sn">01</span>
+      <h2 class="st vf"><em>Expérience</em> professionnelle</h2>
+      <h2 class="st ve">Professional <em>experience</em></h2>
+    </div>
+
+    <!-- PREVIEW CARDS -->
+    <div class="preview-grid reveal" id="expPreview">
+      <div class="prev-card" onclick="toggleDetail('expDetail','expPreview',this)">
+        <div class="pc-num">4</div>
+        <div class="pc-title vf">Expériences</div><div class="pc-title ve">Experiences</div>
+        <div class="pc-sub vf">Vente · Logistique · Événementiel · Industrie</div>
+        <div class="pc-sub ve">Sales · Logistics · Events · Industry</div>
+        <div class="pc-hint vf">Voir le détail</div><div class="pc-hint ve">See details</div>
+      </div>
+      <div class="prev-card" onclick="toggleDetail('expDetail','expPreview',this)">
+        <div class="pc-num">150k€</div>
+        <div class="pc-title vf">GMV générés</div><div class="pc-title ve">GMV generated</div>
+        <div class="pc-sub vf">CheckYeti Vienne · ~300 ventes · FR & EN</div>
+        <div class="pc-sub ve">CheckYeti Vienna · ~300 sales · FR & EN</div>
+        <div class="pc-hint vf">Voir le détail</div><div class="pc-hint ve">See details</div>
+      </div>
+    </div>
+
+    <!-- DETAIL PANEL -->
+    <div class="detail-panel" id="expDetail">
+      <div class="dp-inner">
+        <div class="filter-tabs vf-flex">
+          <button class="fb active" data-f="all" onclick="filterExp('all')">Tout</button>
+          <button class="fb" data-f="ventes" onclick="filterExp('ventes')">Ventes</button>
+          <button class="fb" data-f="ops" onclick="filterExp('ops')">Opérations</button>
+          <button class="fb" data-f="event" onclick="filterExp('event')">Événementiel</button>
+          <button class="fb" data-f="indus" onclick="filterExp('indus')">Industrie</button>
+        </div>
+        <div class="filter-tabs ve-flex">
+          <button class="fb active" data-f="all" onclick="filterExp('all')">All</button>
+          <button class="fb" data-f="ventes" onclick="filterExp('ventes')">Sales</button>
+          <button class="fb" data-f="ops" onclick="filterExp('ops')">Operations</button>
+          <button class="fb" data-f="event" onclick="filterExp('event')">Events</button>
+          <button class="fb" data-f="indus" onclick="filterExp('indus')">Industry</button>
+        </div>
+        <div class="exp-grid">
+          <div class="exp-card" data-cat="ventes">
+            <div class="ep vf">Déc. 2024 – Juin 2025</div><div class="ep ve">Dec. 2024 – Jun. 2025</div>
+            <div class="er vf">Représentant commercial</div><div class="er ve">Sales Representative</div>
+            <div class="ec">CheckYeti · Vienne, Autriche</div>
+            <ul class="eb vf"><li>150 000 € GMV via cycles inbound/outbound, marchés FR & EN</li><li>~300 ventes conclues · Négociation partenariats</li></ul>
+            <ul class="eb ve"><li>€150k GMV through inbound/outbound sales, French & English markets</li><li>~300 sales closed · Partner negotiations</li></ul>
+            <span class="exp-badge">Sales · B2B/B2C</span>
+          </div>
+          <div class="exp-card" data-cat="ops">
+            <div class="ep vf">Juil. – Août 2024</div><div class="ep ve">Jul. – Aug. 2024</div>
+            <div class="er vf">Support logistique & opérationnel</div><div class="er ve">Logistics & Operations Support</div>
+            <div class="ec">Renault · Angers, France</div>
+            <ul class="eb vf"><li>Gestion des flux logistiques en temps réel via ERP SAP</li><li>Fiabilisation des stocks</li></ul>
+            <ul class="eb ve"><li>Real-time logistics flow management via SAP ERP</li><li>Inventory accuracy and reliability</li></ul>
+            <span class="exp-badge">SAP · ERP</span>
+          </div>
+          <div class="exp-card" data-cat="event">
+            <div class="ep vf">Juin – Juil. 2024</div><div class="ep ve">Jun. – Jul. 2024</div>
+            <div class="er vf">Accueil VIP — 24h du Mans</div><div class="er ve">VIP Reception — 24h du Mans</div>
+            <div class="ec">Ford Performance · Le Mans</div>
+            <ul class="eb vf"><li>Relation client haut de gamme pour Ford Mustang</li><li>Coordination événementielle sur site</li></ul>
+            <ul class="eb ve"><li>Premium client relations for Ford Mustang</li><li>On-site event coordination</li></ul>
+            <span class="exp-badge vf">Événementiel · VIP</span><span class="exp-badge ve">Events · VIP</span>
+          </div>
+          <div class="exp-card" data-cat="indus">
+            <div class="ep">Juin 2019</div>
+            <div class="er vf">Stage d'observation</div><div class="er ve">Observation internship</div>
+            <div class="ec">ALSTOM · Johannesburg</div>
+            <ul class="eb vf"><li>Site industriel : bureau d'études, achats, supply chain, production</li></ul>
+            <ul class="eb ve"><li>Industrial site: design office, purchasing, supply chain, production</li></ul>
+            <span class="exp-badge vf">Industrie · Afrique du Sud</span><span class="exp-badge ve">Industry · South Africa</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- EDUCATION -->
+<!-- ══════════════════════════════════════════ -->
+<section id="edu" style="background:var(--cream);">
+  <div class="inner">
+    <div class="sh reveal">
+      <span class="sn">02</span>
+      <h2 class="st vf"><em>Formation</em> & parcours</h2>
+      <h2 class="st ve"><em>Education</em> & journey</h2>
+    </div>
+
+    <div class="preview-grid reveal" id="eduPreview">
+      <div class="prev-card" onclick="toggleDetail('eduDetail','eduPreview',this)">
+        <div class="pc-num">4</div>
+        <div class="pc-title vf">Pays de scolarité</div><div class="pc-title ve">Countries studied in</div>
+        <div class="pc-sub vf">Afrique du Sud · Singapour · Autriche · France · Italie</div>
+        <div class="pc-sub ve">South Africa · Singapore · Austria · France · Italy</div>
+        <div class="pc-hint vf">Voir le parcours</div><div class="pc-hint ve">See journey</div>
+      </div>
+      <div class="prev-card" onclick="toggleDetail('eduDetail','eduPreview',this)">
+        <div class="pc-num">14.5</div>
+        <div class="pc-title vf">Moyenne NEOMA Y1</div><div class="pc-title ve">NEOMA Y1 average</div>
+        <div class="pc-sub vf">Programme CESEM · 60 ECTS · GPA 3.41</div>
+        <div class="pc-sub ve">CESEM Programme · 60 ECTS · GPA 3.41</div>
+        <div class="pc-hint vf">Voir les notes</div><div class="pc-hint ve">See grades</div>
+      </div>
+    </div>
+
+    <div class="detail-panel" id="eduDetail">
+      <div class="dp-inner">
+        <div class="edu-grid">
+          <div class="edu-main">
+            <div class="edu-label">2023 – 2027 · CESEM Programme</div>
+            <div class="edu-school">NEOMA<br>Business School</div>
+            <div class="edu-prog">× Università Cattolica, Piacenza</div>
+            <div class="edu-stats">
+              <div class="edu-stat"><div class="edu-stat-v stat-c" data-t="14.5">14.5</div><div class="edu-stat-l vf">Moy. Y1</div><div class="edu-stat-l ve">Y1 avg</div></div>
+              <div class="edu-stat"><div class="edu-stat-v stat-c" data-t="13.5">13.5</div><div class="edu-stat-l vf">Moy. Y2</div><div class="edu-stat-l ve">Y2 avg</div></div>
+              <div class="edu-stat"><div class="edu-stat-v" style="font-size:.9rem;color:rgba(255,255,255,.4);font-style:italic;padding-top:.2rem;">cible</div><div class="edu-stat-l">GMAT 700+</div></div>
+            </div>
+            <div class="edu-courses">
+              <div class="edu-ct vf">Cours clés</div><div class="edu-ct ve">Key courses</div>
+              <div class="edu-ci"><span class="vf">Microéconomie</span><span class="ve">Microeconomics</span><span class="edu-gr">19/20</span></div>
+              <div class="edu-ci"><span class="vf">Fondamentaux de l'investissement</span><span class="ve">Foundations of investments</span><span class="edu-gr">17.5/20</span></div>
+              <div class="edu-ci"><span class="vf">Mathématiques appliquées</span><span class="ve">Applied mathematics</span><span class="edu-gr">16.5/20</span></div>
+              <div class="edu-ci"><span class="vf">Négociation interculturelle</span><span class="ve">Intercultural negotiation</span><span class="edu-gr">15/20</span></div>
+            </div>
+          </div>
+          <div class="edu-side">
+            <div class="edu-card">
+              <div class="edu-cp">2020 – 2023</div>
+              <div class="edu-cn vf">Baccalauréat français</div><div class="edu-cn ve">French Baccalaureate</div>
+              <div class="edu-cs vf">Lycée français de Vienne. Scolarité débutée à Johannesburg, puis Singapour.</div>
+              <div class="edu-cs ve">Lycée français de Vienne. Schooling started in Johannesburg, then Singapore.</div>
+            </div>
+            <div class="edu-card" id="langCard">
+              <div class="edu-cp vf">Langues</div><div class="edu-cp ve">Languages</div>
+              <div style="display:flex;flex-direction:column;gap:12px;margin-top:.75rem;">
+                <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;"><span style="color:var(--ink);font-weight:400;">Français</span><span style="color:var(--gm);font-size:11px;">Natif</span></div><div class="lang-bar"><div class="lang-fill" data-w="100%" style="width:0%"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;"><span style="color:var(--ink);font-weight:400;">English</span><span style="color:var(--gm);font-size:11px;">C1 · IELTS 7.0</span></div><div class="lang-bar"><div class="lang-fill" data-w="90%" style="width:0%"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;"><span style="color:var(--ink);font-weight:400;">Italiano</span><span style="color:var(--gm);font-size:11px;">B1 · immersione</span></div><div class="lang-bar"><div class="lang-fill" data-w="55%" style="width:0%"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;"><span style="color:var(--ink);font-weight:400;">Español</span><span style="color:var(--gm);font-size:11px;">A2</span></div><div class="lang-bar"><div class="lang-fill" data-w="25%" style="width:0%"></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- CERTIFICATIONS -->
+<!-- ══════════════════════════════════════════ -->
+<section id="certs" class="certs-sec">
+  <div class="inner">
+    <div class="sh reveal">
+      <span class="sn">03</span>
+      <h2 class="st"><em>Certifications</em></h2>
+    </div>
+    <div class="preview-grid reveal" id="certsPreview">
+      <div class="prev-card" onclick="toggleDetail('certsDetail','certsPreview',this)">
+        <div class="pc-num">3</div>
+        <div class="pc-title vf">Certifications</div><div class="pc-title ve">Certifications</div>
+        <div class="pc-sub">Yale · IBM · IELTS</div>
+        <div class="pc-hint vf">Voir & vérifier</div><div class="pc-hint ve">View & verify</div>
+      </div>
+      <div class="prev-card" onclick="toggleDetail('certsDetail','certsPreview',this)">
+        <div class="pc-num">C1</div>
+        <div class="pc-title">IELTS 7.0</div>
+        <div class="pc-sub">Listening 7.5 · Speaking 7.0 · Oct. 2024</div>
+        <div class="pc-hint vf">Voir les scores</div><div class="pc-hint ve">See scores</div>
+      </div>
+    </div>
+    <div class="detail-panel" id="certsDetail">
+      <div class="dp-inner">
+        <div class="certs-grid">
+          <div class="cert-card">
+            <span class="cert-logo">Yale University</span>
+            <div class="cert-name">Financial Markets</div>
+            <div class="cert-desc vf">Pr. Robert J. Shiller. CAPM, efficience des marchés, finance comportementale, gestion de portefeuille.</div>
+            <div class="cert-desc ve">Prof. Robert J. Shiller. CAPM, market efficiency, behavioral finance, portfolio management.</div>
+            <div class="cert-date">Janv. 2026 · Coursera</div>
+            <a href="https://coursera.org/verify/E2HD1ACUWDUS" target="_blank" class="cert-link">
+              <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <span class="vf">Vérifier le certificat</span><span class="ve">Verify certificate</span>
+            </a>
+          </div>
+          <div class="cert-card">
+            <span class="cert-logo">IBM · Coursera</span>
+            <div class="cert-name">Generative AI for BI</div>
+            <div class="cert-desc vf">Spécialisation 3 cours. IA générative pour la Business Intelligence, prompt engineering, ChatGPT, Copilot.</div>
+            <div class="cert-desc ve">3-course specialisation. Generative AI for BI, prompt engineering, ChatGPT, Copilot.</div>
+            <div class="cert-date">Avr. 2025 · Coursera</div>
+            <a href="https://coursera.org/verify/specialization/E6BB1SIX0JB1" target="_blank" class="cert-link">
+              <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <span class="vf">Vérifier le certificat</span><span class="ve">Verify certificate</span>
+            </a>
+          </div>
+          <div class="cert-card">
+            <span class="cert-logo">IELTS Academic</span>
+            <div class="cert-name">IELTS 7.0 — C1</div>
+            <div class="cert-desc vf">L 7.5 · R 6.5 · W 6.0 · S 7.0. British Council / IDP / Cambridge. Oct. 2024, Vienne.</div>
+            <div class="cert-desc ve">L 7.5 · R 6.5 · W 6.0 · S 7.0. British Council / IDP / Cambridge. Oct. 2024, Vienna.</div>
+            <div class="cert-date">Réf. YVBV6J148</div>
+            <a href="https://ielts.org/test-takers/results-certificates/verifying-your-results" target="_blank" class="cert-link">
+              <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <span class="vf">Vérifier en ligne</span><span class="ve">Verify online</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- FINANCE -->
+<!-- ══════════════════════════════════════════ -->
+<section id="finance" style="background:var(--cream);">
+  <div class="inner">
+    <div class="sh reveal">
+      <span class="sn">04</span>
+      <h2 class="st vf">Finance <em>personnelle</em></h2>
+      <h2 class="st ve">Personal <em>finance</em></h2>
+    </div>
+
+    <div class="preview-grid reveal" id="finPreview">
+      <div class="prev-card" onclick="toggleDetail('finDetail','finPreview',this)">
+        <div class="pc-num">4</div>
+        <div class="pc-title vf">Enveloppes actives</div><div class="pc-title ve">Active wrappers</div>
+        <div class="pc-sub vf">AV · PEA · Immobilier fractionné · Crypto</div>
+        <div class="pc-sub ve">Life insurance · PEA · Fractional RE · Crypto</div>
+        <div class="pc-hint vf">Voir l'allocation</div><div class="pc-hint ve">See allocation</div>
+      </div>
+      <div class="prev-card" onclick="toggleDetail('finDetail','finPreview',this)">
+        <div class="pc-num">~78%</div>
+        <div class="pc-title vf">Allocation long terme</div><div class="pc-title ve">Long-term allocation</div>
+        <div class="pc-sub vf">Assurance-vie ESG Europe · horizon 8 ans+</div>
+        <div class="pc-sub ve">ESG Europe life insurance · 8+ year horizon</div>
+        <div class="pc-hint vf">Voir le détail</div><div class="pc-hint ve">See details</div>
+      </div>
+    </div>
+
+    <div class="detail-panel" id="finDetail">
+      <div class="dp-inner">
+        <div class="finance-vis">
+          <!-- Donut -->
+          <div class="donut-wrap">
+            <svg class="donut-svg" viewBox="0 0 200 200" id="donutSvg">
+              <circle cx="100" cy="100" r="70" fill="none" stroke="var(--stone)" stroke-width="18" opacity=".4"/>
+              <circle class="dseg" cx="100" cy="100" r="70" fill="none" stroke="#2D6A4F" stroke-width="18"
+                stroke-dasharray="343 97" stroke-dashoffset="0" stroke-linecap="round"
+                data-lf="Assurance-vie" data-le="Life insurance" data-p="78" data-i="0"/>
+              <circle class="dseg" cx="100" cy="100" r="70" fill="none" stroke="#52B788" stroke-width="18"
+                stroke-dasharray="26 414" stroke-dashoffset="-343" stroke-linecap="round"
+                data-lf="PEA" data-le="PEA" data-p="6" data-i="1"/>
+              <circle class="dseg" cx="100" cy="100" r="70" fill="none" stroke="#B7E4C7" stroke-width="18"
+                stroke-dasharray="17 423" stroke-dashoffset="-369" stroke-linecap="round"
+                data-lf="Immobilier" data-le="Real estate" data-p="4" data-i="2"/>
+              <circle class="dseg" cx="100" cy="100" r="70" fill="none" stroke="#8B7355" stroke-width="18"
+                stroke-dasharray="17 423" stroke-dashoffset="-386" stroke-linecap="round"
+                data-lf="Crypto" data-le="Crypto" data-p="4" data-i="3"/>
+              <text x="100" y="95" text-anchor="middle" class="dcl" id="dlabel">Allocation</text>
+              <text x="100" y="116" text-anchor="middle" class="dcp" id="dpct">~100%</text>
+            </svg>
+            <div class="donut-leg">
+              <div class="dl" data-i="0"><span class="dl-dot" style="background:#2D6A4F"></span><span class="dl-name vf">Assurance-vie</span><span class="dl-name ve">Life insurance</span><span class="dl-pct">~78%</span></div>
+              <div class="dl" data-i="1"><span class="dl-dot" style="background:#52B788"></span><span class="dl-name">PEA</span><span class="dl-pct">~6%</span></div>
+              <div class="dl" data-i="2"><span class="dl-dot" style="background:#B7E4C7"></span><span class="dl-name vf">Immobilier</span><span class="dl-name ve">Real estate</span><span class="dl-pct">~4%</span></div>
+              <div class="dl" data-i="3"><span class="dl-dot" style="background:#8B7355"></span><span class="dl-name">Crypto</span><span class="dl-pct">~4%</span></div>
+              <div class="dl"><span class="dl-dot" style="background:var(--stone)"></span><span class="dl-name vf">Épargne</span><span class="dl-name ve">Savings</span><span class="dl-pct">~8%</span></div>
+            </div>
+          </div>
+          <!-- Accordion -->
+          <div>
+            <div class="acc-list">
+              <div class="acc-item" data-i="0">
+                <div class="acc-head"><div class="acc-dot" style="background:#2D6A4F"></div>
+                  <div class="acc-info"><div class="acc-n vf">Assurance-vie <span class="acc-pct">~78%</span></div><div class="acc-n ve">Life insurance <span class="acc-pct">~78%</span></div><div class="acc-s vf">Mandat ESG Europe · Fonds euros</div><div class="acc-s ve">ESG Europe mandate · Euro fund</div></div>
+                  <svg class="acc-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="acc-body vf">Gestion déléguée sur des lignes ESG Europe et fonds euros. DCA mensuel automatisé. Enveloppe principale de capitalisation long terme (horizon 8 ans+).</div>
+                <div class="acc-body ve">Delegated management across ESG Europe lines and euro fund. Automated monthly DCA. Main long-term compounding wrapper (8+ year horizon).</div>
+              </div>
+              <div class="acc-item" data-i="1">
+                <div class="acc-head"><div class="acc-dot" style="background:#52B788"></div>
+                  <div class="acc-info"><div class="acc-n">PEA <span class="acc-pct">~6%</span></div><div class="acc-s vf">MSCI World · CAC 40 · Euro Stoxx 600</div><div class="acc-s ve">MSCI World · CAC 40 · Euro Stoxx 600</div></div>
+                  <svg class="acc-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="acc-body vf">DCA mensuel sur trois indices. Règle absolue : aucune vente avant 5 ans de détention. Avantage fiscal de l'enveloppe après 5 ans.</div>
+                <div class="acc-body ve">Monthly DCA across three indices. Hard rule: no sell before 5 years. Tax advantage after year 5.</div>
+              </div>
+              <div class="acc-item" data-i="2">
+                <div class="acc-head"><div class="acc-dot" style="background:#B7E4C7"></div>
+                  <div class="acc-info"><div class="acc-n vf">Immobilier fractionné <span class="acc-pct">~4%</span></div><div class="acc-n ve">Fractional real estate <span class="acc-pct">~4%</span></div><div class="acc-s vf">8 projets diversifiés</div><div class="acc-s ve">8 diversified projects</div></div>
+                  <svg class="acc-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="acc-body vf">8 projets immobiliers diversifiés. Loyers reçus et systématiquement réinvestis à l'échéance de chaque projet.</div>
+                <div class="acc-body ve">8 diversified real estate projects. Rental income systematically reinvested at each project's maturity.</div>
+              </div>
+              <div class="acc-item" data-i="3">
+                <div class="acc-head"><div class="acc-dot" style="background:#8B7355"></div>
+                  <div class="acc-info"><div class="acc-n">Crypto <span class="acc-pct">~4%</span></div><div class="acc-s">SOL staking · LINK · AAVE</div></div>
+                  <svg class="acc-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="acc-body vf">SOL en staking (~7% APY), LINK et AAVE en hold. Plafonné à 5% du patrimoine brut — règle non négociable quelle que soit la performance.</div>
+                <div class="acc-body ve">SOL staking (~7% APY), LINK and AAVE on hold. Hard cap at 5% of gross assets — non-negotiable regardless of performance.</div>
+              </div>
+            </div>
+            <!-- Philosophy — dark bg, white text -->
+            <div class="phil-box">
+              <div class="phil-quote vf">"Préférer des règles simples et tenues dans le temps à des stratégies complexes mal exécutées."</div>
+              <div class="phil-quote ve">"Simple, consistently-applied rules outperform complex strategies that are poorly executed."</div>
+              <div class="phil-rules vf">
+                <div class="phil-rule"><span class="phil-rn">—</span><span>Crypto : jamais plus de 5% du patrimoine brut</span></div>
+                <div class="phil-rule"><span class="phil-rn">—</span><span>PEA : aucune vente avant la 5ème année</span></div>
+                <div class="phil-rule"><span class="phil-rn">—</span><span>Épargne de précaution : intouchable sauf urgence</span></div>
+                <div class="phil-rule"><span class="phil-rn">—</span><span>Pas de levier, pas de produits dérivés</span></div>
+              </div>
+              <div class="phil-rules ve">
+                <div class="phil-rule"><span class="phil-rn">—</span><span>Crypto: never exceeds 5% of gross assets</span></div>
+                <div class="phil-rule"><span class="phil-rn">—</span><span>PEA: no sell before year 5</span></div>
+                <div class="phil-rule"><span class="phil-rn">—</span><span>Precautionary savings: untouched except emergency</span></div>
+                <div class="phil-rule"><span class="phil-rn">—</span><span>No leverage, no derivatives</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SPORT -->
+<!-- ══════════════════════════════════════════ -->
+<section id="sport" class="sport-sec">
+  <div class="inner">
+    <div class="sh reveal">
+      <span class="sn">05</span>
+      <h2 class="st vf">Sport & <em>discipline</em></h2>
+      <h2 class="st ve">Sport & <em>discipline</em></h2>
+    </div>
+
+    <div class="preview-grid reveal" id="sportPreview">
+      <div class="prev-card" onclick="toggleDetail('sportDetail','sportPreview',this)">
+        <div class="pc-num">1:53:15</div>
+        <div class="pc-title vf">Semi-marathon de Milan</div><div class="pc-title ve">Milan Half-Marathon</div>
+        <div class="pc-sub vf">21,1 km · 3 mai 2025 · allure 5'22/km</div>
+        <div class="pc-sub ve">21.1 km · May 3, 2025 · 5'22/km pace</div>
+        <div class="pc-hint vf">Voir le détail</div><div class="pc-hint ve">See details</div>
+      </div>
+      <div class="prev-card" onclick="toggleDetail('sportDetail','sportPreview',this)">
+        <div class="pc-num">Rugby</div>
+        <div class="pc-title vf">& Course à pied</div><div class="pc-title ve">& Running</div>
+        <div class="pc-sub vf">Esprit d'équipe · Résilience · Discipline</div>
+        <div class="pc-sub ve">Team spirit · Resilience · Discipline</div>
+        <div class="pc-hint vf">Voir l'approche</div><div class="pc-hint ve">See approach</div>
+      </div>
+    </div>
+
+    <div class="detail-panel" id="sportDetail">
+      <div class="dp-inner">
+        <div class="sport-grid">
+          <div class="sport-main">
+            <div class="slabel vf">Semi-marathon de Milan · 3 mai 2025</div>
+            <div class="slabel ve">Milan Half-Marathon · May 3, 2025</div>
+            <div class="stime">1:53:15</div>
+            <div class="sevent vf">21,1 km · Milan, Italie · Premier semi-marathon</div>
+            <div class="sevent ve">21.1 km · Milan, Italy · First half-marathon</div>
+            <div class="sstats">
+              <div class="ss"><div class="ssv">21.1</div><div class="ssl vf">kilomètres</div><div class="ssl ve">kilometres</div></div>
+              <div class="ss"><div class="ssv">5'22</div><div class="ssl vf">allure /km</div><div class="ssl ve">pace /km</div></div>
+              <div class="ss"><div class="ssv">✓</div><div class="ssl vf">objectif tenu</div><div class="ssl ve">goal achieved</div></div>
+            </div>
+            <div class="sp-prog">
+              <div class="sp-plabel vf">Progression — semi → marathon</div>
+              <div class="sp-plabel ve">Progression — half → marathon</div>
+              <div class="sp-bwrap">
+                <div class="sp-bg"><div class="sp-fill" id="spFill"></div></div>
+                <div class="sp-miles">
+                  <div class="sp-m done" style="left:0%"><div class="sp-mdot"></div><div class="sp-mlabel">0</div></div>
+                  <div class="sp-m done" style="left:50%"><div class="sp-mdot"></div><div class="sp-mlabel">21.1km ✓</div></div>
+                  <div class="sp-m" style="left:100%"><div class="sp-mdot"></div><div class="sp-mlabel vf">42.2km · oct.</div><div class="sp-mlabel ve">42.2km · oct.</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="snext vf">Prochain : <strong>Marathon de Parme</strong> · 18 oct. 2025</div>
+            <div class="snext ve">Next: <strong>Parma Marathon</strong> · Oct. 18, 2025</div>
+          </div>
+          <div class="sport-side">
+            <div class="sc">
+              <div class="sc-title">Rugby</div>
+              <div class="sc-text vf">Pratiqué depuis l'adolescence, le rugby a forgé des valeurs fondamentales : l'esprit d'équipe, l'engagement physique total, la solidarité dans l'effort et la capacité à encaisser les coups pour mieux rebondir.</div>
+              <div class="sc-text ve">Played since adolescence, rugby forged core values: team spirit, total physical commitment, solidarity in effort, and the ability to take hits and bounce back stronger.</div>
+              <div class="rugby-badge">🏉 <span class="vf">Esprit d'équipe · Résilience</span><span class="ve">Team spirit · Resilience</span></div>
+            </div>
+            <div class="sc">
+              <div class="sc-title vf">Ce que le sport apporte</div><div class="sc-title ve">What sport brings</div>
+              <div class="sc-text vf">S'entraîner régulièrement tout en gérant les examens, le GMAT et la vie estudiantine exige une planification rigoureuse et la capacité à tenir le cap sur plusieurs fronts en parallèle.</div>
+              <div class="sc-text ve">Training consistently while managing exams, GMAT and student life demands rigorous planning and the ability to stay on course across multiple priorities at once.</div>
+            </div>
+            <div class="sc">
+              <div class="sc-title vf">Semi → Marathon</div><div class="sc-title ve">Half → Marathon</div>
+              <div class="sc-text vf">Doubler la distance en 5 mois est un exercice de planification stratégique : objectif ambitieux, plan progressif, exécution disciplinée malgré les contraintes.</div>
+              <div class="sc-text ve">Doubling the distance in 5 months is strategic planning in action: ambitious goal, progressive plan, disciplined execution despite constraints.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- DOCUMENTS -->
+<!-- ══════════════════════════════════════════ -->
+<section id="docs" class="docs-sec">
+  <div class="inner">
+    <div class="sh reveal">
+      <span class="sn">06</span>
+      <h2 class="st vf"><em>Documents</em> & justificatifs</h2>
+      <h2 class="st ve"><em>Documents</em> & credentials</h2>
+    </div>
+    <div class="preview-grid reveal" id="docsPreview">
+      <div class="prev-card" onclick="toggleDetail('docsDetail','docsPreview',this)">
+        <div class="pc-num">6</div>
+        <div class="pc-title vf">Documents disponibles</div><div class="pc-title ve">Available documents</div>
+        <div class="pc-sub vf">CV · Certificats · Bulletins NEOMA · IELTS</div>
+        <div class="pc-sub ve">CV · Certificates · NEOMA Transcripts · IELTS</div>
+        <div class="pc-hint vf">Accéder aux documents</div><div class="pc-hint ve">Access documents</div>
+      </div>
+      <div class="prev-card" onclick="toggleDetail('docsDetail','docsPreview',this)">
+        <div class="pc-num">FR·EN</div>
+        <div class="pc-title vf">CV bilingue</div><div class="pc-title ve">Bilingual CV</div>
+        <div class="pc-sub vf">Deux versions disponibles en téléchargement</div>
+        <div class="pc-sub ve">Both versions available for download</div>
+        <div class="pc-hint vf">Télécharger</div><div class="pc-hint ve">Download</div>
+      </div>
+    </div>
+    <div class="detail-panel" id="docsDetail">
+      <div class="dp-inner">
+        <div class="docs-grid">
+          <div class="doc-card">
+            <span class="doc-type">CV · FR</span>
+            <div class="doc-title vf">CV Français</div><div class="doc-title ve">French CV</div>
+            <div class="doc-sub vf">Parcours complet, expériences, compétences et centres d'intérêt.</div>
+            <div class="doc-sub ve">Full background, experience, skills and interests — French version.</div>
+            <a href="Mae_l_Cadiou_-_cv_fr.pdf" target="_blank" class="doc-btn">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span class="vf">Ouvrir le PDF</span><span class="ve">Open PDF</span>
+            </a>
+          </div>
+          <div class="doc-card">
+            <span class="doc-type">CV · EN</span>
+            <div class="doc-title vf">CV Anglais</div><div class="doc-title ve">English CV</div>
+            <div class="doc-sub vf">Version anglaise pour candidatures internationales.</div>
+            <div class="doc-sub ve">English version for international applications.</div>
+            <a href="Mae_l_Cadiou_-_cv.pdf" target="_blank" class="doc-btn">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span class="vf">Ouvrir le PDF</span><span class="ve">Open PDF</span>
+            </a>
+          </div>
+          <div class="doc-card">
+            <span class="doc-type">Yale · Coursera</span>
+            <div class="doc-title">Financial Markets</div>
+            <div class="doc-sub vf">Yale University — Pr. Shiller. Janv. 2026.</div>
+            <div class="doc-sub ve">Yale University — Prof. Shiller. Jan. 2026.</div>
+            <a href="YALE_FINANCIAL_MARKET-MAEL.pdf" target="_blank" class="doc-btn">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span class="vf">Ouvrir le PDF</span><span class="ve">Open PDF</span>
+            </a>
+          </div>
+          <div class="doc-card">
+            <span class="doc-type">IBM · Coursera</span>
+            <div class="doc-title">Generative AI for BI</div>
+            <div class="doc-sub vf">IBM — Spécialisation IA Générative. Avr. 2025.</div>
+            <div class="doc-sub ve">IBM — Generative AI Specialisation. Apr. 2025.</div>
+            <a href="IBM-Generative_AI_.pdf" target="_blank" class="doc-btn">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span class="vf">Ouvrir le PDF</span><span class="ve">Open PDF</span>
+            </a>
+          </div>
+          <div class="doc-card">
+            <span class="doc-type">IELTS Academic</span>
+            <div class="doc-title">IELTS 7.0 — C1</div>
+            <div class="doc-sub vf">Test Report Form. L 7.5 · R 6.5 · W 6.0 · S 7.0. Oct. 2024, Vienne.</div>
+            <div class="doc-sub ve">Test Report Form. L 7.5 · R 6.5 · W 6.0 · S 7.0. Oct. 2024, Vienna.</div>
+            <a href="IELTS_-_Mael_Cadiou.pdf" target="_blank" class="doc-btn">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span class="vf">Ouvrir le PDF</span><span class="ve">Open PDF</span>
+            </a>
+          </div>
+          <div class="doc-card">
+            <span class="doc-type vf">Relevés de notes</span><span class="doc-type ve">Transcripts</span>
+            <div class="doc-title vf">Bulletins NEOMA</div><div class="doc-title ve">NEOMA Transcripts</div>
+            <div class="doc-sub vf">Y1 : moy. 14,53 · GPA 3.41. Y2 : moy. 13,55 · GPA 3.13. Programme CESEM.</div>
+            <div class="doc-sub ve">Y1: avg. 14.53 · GPA 3.41. Y2: avg. 13.55 · GPA 3.13. CESEM Programme.</div>
+            <a href="NEOMA_Y1-BULLETIN.pdf" target="_blank" class="doc-btn">
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Y1 · PDF
+            </a>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-top:1.5rem;font-weight:300;" class="vf">Les PDFs s'ouvrent si les fichiers sont dans le même dossier que ce fichier HTML (pour GitHub Pages, uploadez-les dans le même repo).</p>
+        <p style="font-size:12px;color:var(--muted);margin-top:1.5rem;font-weight:300;" class="ve">PDFs open when files are in the same folder as this HTML file (for GitHub Pages, upload them to the same repo).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-sec">
+  <div class="ci">
+    <div class="csup">Finance · Sport · International</div>
+    <h2 class="ctitle vf">Parlons <em>finance,<br>sport ou stratégie</em></h2>
+    <h2 class="ctitle ve">Let's talk <em>finance,<br>sport or strategy</em></h2>
+    <p class="csub vf">Ouvert à toute discussion autour de la finance, de la performance ou d'un projet commun.</p>
+    <p class="csub ve">Open to any conversation around finance, performance or a shared project.</p>
+    <p class="cphone">+33 7 68 35 47 82</p>
+    <div class="clinks">
+      <a href="mailto:mcadiou18@gmail.com" class="cl cl-p">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        mcadiou18@gmail.com
+      </a>
+      <a href="https://linkedin.com/in/mael-cadiou/" target="_blank" class="cl cl-s">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        linkedin.com/in/mael-cadiou
+      </a>
+    </div>
+    <div class="cfoot">Piacenza, Italie · 2026</div>
+  </div>
+</section>
+
+<script>
+// ── CURSOR ──
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.prev-card,.acc-head').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.opacity='.12';});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='.5';});
+});
+
+// ── LANG ──
+function setLang(l){
+  document.body.classList.toggle('en',l==='en');
+  document.querySelectorAll('.lb').forEach(b=>b.classList.remove('active'));
+  document.querySelector('[onclick="setLang(\''+l+'\')"]').classList.add('active');
+  document.documentElement.lang=l;
+}
+
+// ── SCROLL REVEAL ──
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ── NAV ──
+window.addEventListener('scroll',()=>{
+  const n=document.getElementById('nav'),y=window.scrollY;
+  if(y>60){n.style.background='rgba(250,250,247,.95)';n.style.backdropFilter='blur(14px)';n.style.borderBottom='1px solid rgba(0,0,0,.06)';}
+  else{n.style.background='transparent';n.style.backdropFilter='none';n.style.borderBottom='none';}
+  // parallax
+  const g=document.querySelector('.hero-3d'),hc=document.querySelector('.hero-c');
+  if(g)g.style.transform=`translateY(calc(-50% + ${y*.18}px))`;
+  if(hc&&y<window.innerHeight)hc.style.transform=`translateY(${y*.07}px)`;
+},{passive:true});
+
+// ── TOGGLE DETAIL PANELS ──
+function toggleDetail(detailId, previewId, clickedCard){
+  const panel=document.getElementById(detailId);
+  const isOpen=panel.classList.contains('open');
+  // close all panels
+  document.querySelectorAll('.detail-panel').forEach(p=>p.classList.remove('open'));
+  document.querySelectorAll('.prev-card').forEach(c=>c.classList.remove('active-card'));
+  if(!isOpen){
+    panel.classList.add('open');
+    clickedCard.classList.add('active-card');
+    // Also mark the sibling card
+    const siblings=document.querySelectorAll('#'+previewId+' .prev-card');
+    siblings.forEach(s=>s.classList.add('active-card'));
+    // Trigger animations inside panel
+    setTimeout(()=>triggerPanelAnimations(detailId),100);
+    // Smooth scroll to panel
+    setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+  }
+}
+
+function triggerPanelAnimations(id){
+  // Language bars
+  if(id==='eduDetail'){
+    document.querySelectorAll('.lang-fill').forEach(b=>{
+      const w=b.dataset.w;
+      b.style.width=w;
+    });
+  }
+  // Donut animation
+  if(id==='finDetail'){
+    document.querySelectorAll('.dseg').forEach(seg=>{
+      const orig=seg.getAttribute('stroke-dasharray');
+      seg.setAttribute('stroke-dasharray','0 440');
+      setTimeout(()=>{
+        seg.style.transition='stroke-dasharray 1.2s cubic-bezier(.4,0,.2,1)';
+        seg.setAttribute('stroke-dasharray',orig);
+      },80);
+    });
+  }
+  // Sport progress bar
+  if(id==='sportDetail'){
+    setTimeout(()=>{const b=document.getElementById('spFill');if(b)b.style.width='50%';},300);
+  }
+  // Counters
+  document.querySelectorAll('#'+id+' .stat-c').forEach(el=>{
+    const target=parseFloat(el.dataset.t);
+    const isF=el.dataset.t.includes('.');
+    let cur2=0;
+    const step=target/(1400/16);
+    const timer=setInterval(()=>{
+      cur2=Math.min(cur2+step,target);
+      el.textContent=isF?cur2.toFixed(1):Math.round(cur2);
+      if(cur2>=target)clearInterval(timer);
+    },16);
+  });
+}
+
+// ── ACCORDION (Finance) ──
+document.querySelectorAll('.acc-head').forEach(head=>{
+  head.addEventListener('click',()=>{
+    const item=head.parentElement;
+    const isOpen=item.classList.contains('open');
+    document.querySelectorAll('.acc-item').forEach(i=>i.classList.remove('open'));
+    // Reset donut
+    document.querySelectorAll('.dseg').forEach(s=>{s.classList.remove('dim','active');});
+    document.querySelectorAll('.dl').forEach(d=>d.style.opacity='1');
+    document.getElementById('dlabel').textContent='Allocation';
+    document.getElementById('dpct').textContent='~100%';
+    if(!isOpen){
+      item.classList.add('open');
+      const idx=item.dataset.i;
+      if(idx!==undefined){
+        document.querySelectorAll('.dseg').forEach(s=>{
+          s.classList.toggle('dim',s.dataset.i!==idx);
+          s.classList.toggle('active',s.dataset.i===idx);
+        });
+        document.querySelectorAll('.dl').forEach(d=>d.style.opacity=d.dataset.i===idx?'1':'.3');
+        const seg=document.querySelector('.dseg[data-i="'+idx+'"]');
+        if(seg){
+          const lang=document.documentElement.lang;
+          document.getElementById('dlabel').textContent=lang==='en'?seg.dataset.le:seg.dataset.lf;
+          document.getElementById('dpct').textContent='~'+seg.dataset.p+'%';
+        }
+      }
+    }
+  });
+});
+
+// ── DONUT HOVER ──
+document.querySelectorAll('.dseg').forEach(seg=>{
+  seg.addEventListener('mouseenter',()=>{
+    const idx=seg.dataset.i;
+    document.querySelectorAll('.dseg').forEach(s=>s.classList.toggle('dim',s.dataset.i!==idx));
+    document.querySelectorAll('.dl').forEach(d=>d.style.opacity=d.dataset.i===idx?'1':'.3');
+    const lang=document.documentElement.lang;
+    document.getElementById('dlabel').textContent=lang==='en'?seg.dataset.le:seg.dataset.lf;
+    document.getElementById('dpct').textContent='~'+seg.dataset.p+'%';
+  });
+  seg.addEventListener('mouseleave',()=>{
+    if(!document.querySelector('.acc-item.open')){
+      document.querySelectorAll('.dseg').forEach(s=>s.classList.remove('dim'));
+      document.querySelectorAll('.dl').forEach(d=>d.style.opacity='1');
+      document.getElementById('dlabel').textContent='Allocation';
+      document.getElementById('dpct').textContent='~100%';
+    }
+  });
+});
+
+// ── TILT 3D ──
+document.querySelectorAll('.exp-card,.cert-card,.doc-card,.prev-card,.sc').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`perspective(700px) rotateY(${x*7}deg) rotateX(${-y*7}deg) translateY(-4px)`;
+    card.style.transition='transform .05s';
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transform='';
+    card.style.transition='transform .5s cubic-bezier(.2,.8,.3,1)';
+  });
+});
+
+// ── FILTER EXP ──
+function filterExp(cat){
+  document.querySelectorAll('.exp-card').forEach(c=>{
+    const show=cat==='all'||c.dataset.cat.includes(cat);
+    c.style.opacity=show?'1':'.2';
+    c.style.transform=show?'':'scale(.96)';
+    c.style.transition='opacity .35s,transform .35s';
+  });
+  document.querySelectorAll('.fb').forEach(b=>b.classList.toggle('active',b.dataset.f===cat));
+}
+
+// ── MAGNETIC CONTACT BUTTONS ──
+document.querySelectorAll('.cl').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const r=btn.getBoundingClientRect();
+    const x=(e.clientX-r.left-r.width/2)*.25;
+    const y=(e.clientY-r.top-r.height/2)*.25;
+    btn.style.transform=`translate(${x}px,${y}px)`;
+    btn.style.transition='transform .1s';
+  });
+  btn.addEventListener('mouseleave',()=>{
+    btn.style.transform='';
+    btn.style.transition='transform .5s cubic-bezier(.2,.8,.3,1)';
+  });
+});
+</script>
+</body>
+</html>
