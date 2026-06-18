@@ -8,10 +8,14 @@
 <meta name="author" content="Maël Cadiou">
 <meta property="og:title" content="Maël Cadiou - Portfolio | Finance & Performance">
 <meta property="og:type" content="website">
-<meta property="og:image" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:url" content="https://mael-cadiou.github.io/">
+<meta property="og:image" content="https://mael-cadiou.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Maël Cadiou - Portfolio">
 <meta name="twitter:description" content="Finance student NEOMA × Cattolica. Yale & IBM certified. Personal portfolio.">
+<meta name="twitter:image" content="https://mael-cadiou.github.io/og-image.png">
 <meta property="og:description" content="Personal portfolio — Finance, Sport, International | Available for internship">
 <title>Maël Cadiou - Portfolio</title>
 <meta property="og:locale" content="en_GB">
@@ -33,6 +37,7 @@
   --gm:      #2D7A52;
   --gl:      #4DAA78;
   --gp:      #D4EDDF;
+  --on-dark: #F4F1EA;
   --serif:   'Cormorant Garamond', Georgia, serif;
   --sans:    'Outfit', system-ui, sans-serif;
   --ease:    cubic-bezier(.25,.46,.45,.94);
@@ -133,7 +138,8 @@ nav.scrolled{
 ═══════════════════════════════════════════ */
 .hero{
   min-height:100vh;display:flex;align-items:center;
-  padding:8rem 3rem 4rem;position:relative;overflow:hidden;
+  padding:8rem max(3rem, calc((100% - 1100px) / 2)) 4rem;
+  position:relative;overflow:hidden;
 }
 /* Subtle grid background */
 .hero::before{
@@ -158,15 +164,10 @@ nav.scrolled{
 
 .hero-c{position:relative;z-index:1;max-width:680px;}
 
-/* Staggered entrance */
-.hero-c>*{opacity:0;transform:translateY(22px);}
-.hero-c>*:nth-child(1){animation:fu .9s .1s var(--ease) forwards;}
-.hero-c>*:nth-child(2){animation:fu .9s .25s var(--ease) forwards;}
-.hero-c>*:nth-child(3){animation:fu .9s .4s var(--ease) forwards;}
-.hero-c>*:nth-child(4){animation:fu .9s .55s var(--ease) forwards;}
-.hero-c>*:nth-child(5){animation:fu .9s .7s var(--ease) forwards;}
-.hero-c>*:nth-child(6){animation:fu .9s .85s var(--ease) forwards;}
-.hero-c>*:nth-child(7){animation:fu .9s 1s var(--ease) forwards;}
+/* Staggered entrance — piloté en JS pour ignorer les doublons FR/EN cachés
+   et rester robuste si du contenu est ajouté/retiré */
+.hero-c>*{opacity:0;transform:translateY(22px);transition:opacity .85s var(--ease),transform .85s var(--ease);}
+.hero-c.in>*{opacity:1;transform:none;}
 @keyframes fu{to{opacity:1;transform:none;}}
 
 .h-eyebrow{
@@ -242,11 +243,11 @@ nav.scrolled{
 .htag:hover{border-color:var(--gm);color:var(--g);}
 
 /* Horizontal city timeline */
-.city-tl{display:flex;align-items:center;gap:0;}
+.city-tl{display:flex;align-items:flex-start;gap:0;}
 @media(max-width:768px){
   .city-tl{flex-direction:column;align-items:flex-start;gap:0;}
   .city-node{flex-direction:row;align-items:center;gap:10px;padding:.35rem 0;}
-  .city-line{width:1px;height:18px;background:var(--stone);margin-left:3.5px;}
+  .city-line{width:1px;height:18px;background:var(--stone);margin-left:3.5px;margin-top:0;}
   .city-label{font-size:12px;}
   .city-dot-wrap{flex-shrink:0;}
 }
@@ -263,16 +264,17 @@ nav.scrolled{
   transition:background .2s,border-color .2s;
 }
 .city-node:hover .city-dot-inner{background:var(--gm);border-color:var(--g);}
-.city-line{width:28px;height:1px;background:var(--stone);}
+.city-line{width:28px;height:1px;background:var(--stone);margin-top:3.5px;}
 .city-label{font-size:10px;color:var(--muted);letter-spacing:.04em;white-space:nowrap;transition:color .2s;}
 .city-node:hover .city-label{color:var(--g);}
 
 .scroll-ind{
-  position:absolute;bottom:2.5rem;left:3rem;
+  position:absolute;bottom:2.5rem;right:max(3rem, calc((100% - 1100px) / 2));left:auto;
   display:flex;align-items:center;gap:10px;z-index:1;
   font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
   opacity:0;animation:fu .8s 1.3s var(--ease) forwards;
 }
+@media(max-width:768px){.scroll-ind{display:none;}}
 .sl{width:36px;height:1px;background:var(--stone);position:relative;overflow:hidden;}
 .sl::after{
   content:'';position:absolute;left:-100%;top:0;
@@ -643,39 +645,37 @@ body.en .vf-f{display:none!important;}
 }
 .reset-filter:hover{background:var(--gp);color:var(--g);}
 
-/* ── AUTO DARK MODE (system preference) ──────── */
-@media(prefers-color-scheme:dark){
-  :root{
-    --white:#0A0F14;
-    --cream:#0F1720;
-    --stone:#1E2D3D;
-    --ink:#E8E4DC;
-    --ink2:#B8B4AC;
-    --muted:#7A8A9A;
-    --g:#4A7FA8;
-    --gm:#5A9FC8;
-    --gl:#7ABFE8;
-    --gp:rgba(74,127,168,.14);
-  }
-}
-/* ── DARK MODE (Deep Ink — manual toggle) ──── */
+/* ── DARK MODE (Forêt nocturne — vert, raccord avec le mode clair) ──── */
 body.dark{
-  --white:#0A0F14;
-  --cream:#0F1720;
-  --stone:#1E2D3D;
-  --ink:#E8E4DC;
-  --ink2:#B8B4AC;
-  --muted:#7A8A9A;
-  --g:#4A7FA8;
-  --gm:#5A9FC8;
-  --gl:#7ABFE8;
-  --gp:rgba(74,127,168,.14);
+  --white:#0B0F0C;
+  --cream:#121815;
+  --stone:#28342C;
+  --ink:#EAE8E0;
+  --ink2:#B4B6AC;
+  --muted:#7E887C;
+  --g:#5FB98A;
+  --gm:#7FCFA4;
+  --gl:#A6E3C2;
+  --gp:rgba(95,185,138,.15);
 }
 body.dark nav.scrolled{background:rgba(14,14,12,.96);}
 body.dark .edu-main{background:var(--cream);}
 body.dark .sport-main{background:var(--cream);}
 body.dark .phil{background:var(--cream);}
 body.dark .contact-sec{background:var(--white);}
+/* Texte clair sur les surfaces qui restent sombres en mode nuit */
+body.dark .edu-main,
+body.dark .edu-school,
+body.dark .eslv,
+body.dark .edu-tab.active,
+body.dark .sp-time,
+body.dark .spsv,
+body.dark .pq,
+body.dark .ctitle,
+body.dark .cl-s:hover,
+body.dark .kpi-card{color:var(--on-dark);}
+body.dark .ftab.on,body.dark .ftab:hover{background:var(--g);border-color:var(--g);color:var(--white);}
+body.dark .hero-globe{opacity:.24;}
 body.dark .dark-btn{color:var(--gl);}
 .dark-btn{
   background:none;border:none;cursor:none;
@@ -783,12 +783,12 @@ body.dark .cert-logo{background:rgba(77,170,120,.2);}
 body.dark .ebadge,.body.dark .exp-badge{background:rgba(77,170,120,.15);}
 
 body.dark .kpi-card{background:var(--stone);border:1px solid var(--stone);}
-body.dark .kpi-val{color:var(--white);}
+body.dark .kpi-val{color:var(--on-dark);}
 body.dark .kpi-delta{color:var(--gl);}
-body.dark .kpi-label{color:rgba(250,250,247,.45);}
+body.dark .kpi-label{color:rgba(244,241,234,.5);}
 body.dark .cert-logo{color:var(--gl);}
 body.dark .ebadge,.body.dark .exp-badge{color:var(--gl);}
-body.dark .gauge-val{color:var(--white);}
+body.dark .gauge-val{color:var(--on-dark);}
 body.dark .gmat-gauge-wrap{background:var(--cream);border-color:var(--stone);}
 
 .edu-tabs{display:flex;gap:4px;margin-bottom:1.25rem;background:rgba(255,255,255,.07);border-radius:8px;padding:3px;}
@@ -801,9 +801,47 @@ body.dark .gmat-gauge-wrap{background:var(--cream);border-color:var(--stone);}
 }
 .edu-tab.active{background:rgba(255,255,255,.14);color:var(--white);}
 .edu-tab:hover:not(.active){color:rgba(255,255,255,.7);}
+
+/* ── FOCUS CLAVIER VISIBLE ──────────────────── */
+a:focus-visible,button:focus-visible,
+.pcard:focus-visible,.ah:focus-visible,
+.ftab:focus-visible,.edu-tab:focus-visible,
+.lb:focus-visible,.dark-btn:focus-visible,
+[tabindex]:focus-visible{
+  outline:2px solid var(--gm);
+  outline-offset:3px;
+  border-radius:6px;
+}
+/* Souris cachée → on rétablit un curseur normal au clavier */
+body.using-kb,body.using-kb *{cursor:auto!important;}
+
+/* ── MOUVEMENT RÉDUIT (accessibilité) ───────── */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+    scroll-behavior:auto!important;
+  }
+  .hero-globe{animation:none!important;}
+  .hero-c>*{opacity:1!important;transform:none!important;}
+  .rv,.rv2{opacity:1!important;transform:none!important;}
+}
 </style>
+<noscript><style>.hero-c>*{opacity:1!important;transform:none!important;}</style></noscript>
 </head>
 <body class="en">
+
+<script>
+// ── THÈME : appliqué avant le rendu pour éviter tout flash ──
+(function(){
+  var saved=null;try{saved=localStorage.getItem('mc-dark');}catch(e){}
+  var dark = saved!==null
+    ? saved==='1'
+    : (window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches);
+  if(dark)document.body.classList.add('dark');
+})();
+</script>
 
 <div id="cur"></div>
 <div id="curRing"></div>
@@ -915,7 +953,7 @@ body.dark .gmat-gauge-wrap{background:var(--cream);border-color:var(--stone);}
           </svg>
         </div>
         <div>
-          <div class="gauge-val">700<span style="font-size:1rem;color:var(--gm);">+</span></div>
+          <div class="gauge-val">680<span style="font-size:1rem;color:var(--gm);">+</span></div>
           <div class="gauge-sub vf">GMAT · Objectif</div>
           <div class="gauge-sub ve">GMAT · Target</div>
         </div>
@@ -926,7 +964,7 @@ body.dark .gmat-gauge-wrap{background:var(--cream);border-color:var(--stone);}
 
     <!-- CTA -->
     <div class="h-ctas">
-      <a href="Mael_Cadiou_CV_FR.pdf" target="_blank" class="btn btn-primary">
+      <a href="Mael_Cadiou_CV_EN.pdf" target="_blank" class="btn btn-primary" id="cvBtn">
         <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         <span class="vf">Télécharger le CV</span><span class="ve">Download CV</span>
       </a>
@@ -1125,7 +1163,7 @@ body.dark .gmat-gauge-wrap{background:var(--cream);border-color:var(--stone);}
               <div class="edu-stats">
                 <div class="esl"><div class="eslv stat-c" data-t="14.5">14.5</div><div class="esll vf">Moy. Y1</div><div class="esll ve">Y1 avg</div></div>
                 <div class="esl"><div class="eslv stat-c" data-t="13.5">13.5</div><div class="esll vf">Moy. Y2</div><div class="esll ve">Y2 avg</div></div>
-                <div class="esl"><div class="eslv" style="font-size:.85rem;color:rgba(255,255,255,.35);padding-top:.2rem;font-style:italic;">target</div><div class="esll">GMAT 700+</div></div>
+                <div class="esl"><div class="eslv" style="font-size:.85rem;color:rgba(255,255,255,.35);padding-top:.2rem;font-style:italic;">target</div><div class="esll">GMAT 680+</div></div>
               </div>
               <div class="edu-courses" id="eduGrades">
                 <div class="edu-ct vf">Cours clés</div><div class="edu-ct ve">Key courses</div>
@@ -1401,8 +1439,8 @@ body.dark .gmat-gauge-wrap{background:var(--cream);border-color:var(--stone);}
       <div class="pcard" data-detail="sportDet" data-focus="running" data-scroll-target="sportMain">
         <div class="pcard-num">1:53:15</div>
         <div class="pcard-title vf">Semi-marathon de Milan</div><div class="pcard-title ve">Milan Half-Marathon</div>
-        <div class="pcard-sub vf">21.1 km · 5'22/km · 3 mai 2025</div>
-        <div class="pcard-sub ve">21.1 km · 5'22/km · May 3, 2025</div>
+        <div class="pcard-sub vf">21.1 km · 5'22/km · 3 mai 2026</div>
+        <div class="pcard-sub ve">21.1 km · 5'22/km · May 3, 2026</div>
         <div class="pcard-hint vf">Voir le détail</div><div class="pcard-hint ve">See details</div>
       </div>
       <div class="pcard" data-detail="sportDet" data-focus="rugby" data-scroll-target="rugbyCard">
@@ -1417,8 +1455,8 @@ body.dark .gmat-gauge-wrap{background:var(--cream);border-color:var(--stone);}
       <div class="dp-inner">
         <div class="sport-grid">
           <div class="sport-main" id="sportMain">
-            <div class="sp-label vf">Semi-marathon de Milan · 3 mai 2025</div>
-            <div class="sp-label ve">Milan Half-Marathon · May 3, 2025</div>
+            <div class="sp-label vf">Semi-marathon de Milan · 3 mai 2026</div>
+            <div class="sp-label ve">Milan Half-Marathon · May 3, 2026</div>
             <div class="sp-time">1:53:15</div>
             <div class="sp-event vf">21,1 km · Premier semi-marathon</div>
             <div class="sp-event ve">21.1 km · First half-marathon</div>
@@ -1438,8 +1476,8 @@ body.dark .gmat-gauge-wrap{background:var(--cream);border-color:var(--stone);}
                 </div>
               </div>
             </div>
-            <div class="snext vf">Prochain : <strong>Marathon de Parme</strong> · 18 oct. 2025</div>
-            <div class="snext ve">Next: <strong>Parma Marathon</strong> · Oct. 18, 2025</div>
+            <div class="snext vf">Prochain : <strong>Marathon de Parme</strong> · 18 oct. 2026</div>
+            <div class="snext ve">Next: <strong>Parma Marathon</strong> · Oct. 18, 2026</div>
           </div>
           <div class="sport-side">
             <div class="sc">
@@ -1591,6 +1629,21 @@ body.dark .gmat-gauge-wrap{background:var(--cream);border-color:var(--stone);}
      SCRIPTS
 ════════════════════════════════════════════ -->
 <script>
+// ── PRÉFÉRENCE MOUVEMENT RÉDUIT ─────────────
+const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+// ── ENTRÉE DU HERO (ignore les doublons FR/EN cachés) ──
+(function(){
+  const hc=document.querySelector('.hero-c');
+  if(!hc)return;
+  if(reduceMotion){hc.classList.add('in');return;}
+  // n'échelonne que les éléments réellement visibles
+  [...hc.children].filter(el=>el.offsetParent!==null).forEach((el,i)=>{
+    el.style.transitionDelay=(0.1+i*0.11)+'s';
+  });
+  requestAnimationFrame(()=>requestAnimationFrame(()=>hc.classList.add('in')));
+})();
+
 // ── CURSOR — disable on touch devices ───────
 const isTouch=('ontouchstart' in window)||navigator.maxTouchPoints>0;
 const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
@@ -1613,7 +1666,16 @@ function setLang(l){
   document.querySelectorAll('.lb').forEach(b=>b.classList.remove('on'));
   document.querySelector('[onclick="setLang(\''+l+'\')"]').classList.add('on');
   document.documentElement.lang=l;
+  // Le bouton CV du hero pointe vers la bonne version
+  var cv=document.getElementById('cvBtn');
+  if(cv)cv.href=(l==='en'?'Mael_Cadiou_CV_EN.pdf':'Mael_Cadiou_CV_FR.pdf');
+  try{localStorage.setItem('mc-lang',l);}catch(e){}
 }
+// Restaure la langue choisie précédemment
+(function(){
+  var l=null;try{l=localStorage.getItem('mc-lang');}catch(e){}
+  if(l==='fr'||l==='en')setLang(l);
+})();
 
 // ── NAV SCROLL ─────────────────────────────
 const nav=document.getElementById('nav');
@@ -1622,6 +1684,7 @@ const globe=document.querySelector('.hero-globe');
 window.addEventListener('scroll',()=>{
   const y=window.scrollY;
   nav.classList.toggle('scrolled',y>60);
+  if(reduceMotion)return;
   if(globe)globe.style.transform=`translateY(calc(-50% + ${y*.15}px))`;
   if(hc&&y<window.innerHeight)hc.style.transform=`translateY(${y*.06}px)`;
 },{passive:true});
@@ -1676,6 +1739,21 @@ document.querySelectorAll('.pcard').forEach(card=>{
     if(certFocus!=='all')focusCert(certFocus);
   });
 });
+
+// ── ACCESSIBILITÉ CLAVIER ───────────────────
+// Rend les éléments cliquables (cartes, accordéon) opérables au clavier
+document.querySelectorAll('.pcard,.ah').forEach(el=>{
+  el.setAttribute('tabindex','0');
+  el.setAttribute('role','button');
+  el.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}
+  });
+});
+// Affiche un vrai curseur dès qu'on navigue au clavier (Tab)
+window.addEventListener('keydown',e=>{
+  if(e.key==='Tab')document.body.classList.add('using-kb');
+});
+window.addEventListener('mousedown',()=>document.body.classList.remove('using-kb'));
 
 // ── TRIGGER ANIMATIONS ────────────────────
 function triggerAnims(id,focusKey,certFocus,clickedCard){
@@ -1895,10 +1973,10 @@ function initTilt(){
     });
   });
 }
-initTilt();
+if(!isTouch&&!reduceMotion)initTilt();
 
 // ── MAGNETIC CONTACT BTNS ────────────────
-document.querySelectorAll('.cl').forEach(btn=>{
+if(!isTouch&&!reduceMotion)document.querySelectorAll('.cl').forEach(btn=>{
   btn.addEventListener('mousemove',e=>{
     const r=btn.getBoundingClientRect();
     btn.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.22}px,${(e.clientY-r.top-r.height/2)*.22}px)`;
@@ -1911,7 +1989,7 @@ document.querySelectorAll('.cl').forEach(btn=>{
 });
 
 // ── BTN HERO HOVER ───────────────────────
-document.querySelectorAll('.btn').forEach(btn=>{
+if(!isTouch&&!reduceMotion)document.querySelectorAll('.btn').forEach(btn=>{
   btn.addEventListener('mousemove',e=>{
     const r=btn.getBoundingClientRect();
     const x=(e.clientX-r.left-r.width/2)*.15;
@@ -1939,15 +2017,15 @@ window.addEventListener('DOMContentLoaded',()=>{
 
   // ── GMAT Gauge animation ──
   // Arc total = ~100.53 (half-circle r=32: π×32≈100.53)
-  // 700/800 target = 87.5% → offset = 100.53*(1-0.875) = 12.57
+  // 680/800 target = 85% → offset = 100.53*(1-0.85) = 15.08
   const arc=document.getElementById('gaugeArc');
   const needle=document.getElementById('gaugeNeedle');
   if(arc){
     setTimeout(()=>{
-      arc.style.strokeDashoffset='12.57';
+      arc.style.strokeDashoffset='15.08';
       // Needle: -90deg=min(200), 0deg=mid(500), +90deg=max(800)
-      // 700 on 200-800 range = (700-200)/600 = 83.3% → angle = -90 + 83.3*180 = 60deg
-      if(needle)needle.style.transform='rotate(60deg)';
+      // 680 on 200-800 range = (680-200)/600 = 80% → angle = -90 + 80*1.8 = 54deg
+      if(needle)needle.style.transform='rotate(54deg)';
     },300);
   }
 });
@@ -1959,10 +2037,11 @@ function toggleDark(){
   if(lbl)lbl.textContent=isDark?'Light':'Dark';
   localStorage.setItem('mc-dark',isDark?'1':'0');
 }
-// Restore preference
+// Synchronise le libellé du bouton avec le thème déjà appliqué
 (function(){
-  const saved=localStorage.getItem('mc-dark');
-  if(saved==='1'){document.body.classList.add('dark');const l=document.getElementById('darkLabel');if(l)l.textContent='Light';}
+  if(document.body.classList.contains('dark')){
+    var l=document.getElementById('darkLabel');if(l)l.textContent='Light';
+  }
 })();
 
 // ── DONUT TOOLTIP & THESIS ──────────────────
